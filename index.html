@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#fff4f2">
+<title>Dwayne, My Boy ❤️</title>
+<style>
+:root {
+  --cream:#fff4f2; --blush:#f8dada; --rose:#c96b72;
+  --wine:#963e4c; --text:#713c45;
+}
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
+body { font-family:Georgia,serif; background:var(--cream); color:var(--text); overflow-x:hidden; }
+nav { position:sticky; top:0; z-index:10; background:#fff4f2f2; border-bottom:1px solid #f1c9ca; padding:12px 5px; text-align:center; backdrop-filter:blur(10px); }
+nav a { display:inline-block; color:var(--wine); text-decoration:none; margin:5px 7px; font-size:13px; }
+section { padding:65px 18px; text-align:center; scroll-margin-top:55px; }
+h1,h2 { color:var(--wine); margin-bottom:18px; }
+h1 { font-size:clamp(35px,8vw,58px); }
+h2 { font-size:29px; }
+p { line-height:1.8; }
+.hero { min-height:90vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:linear-gradient(140deg,var(--cream),var(--blush),#fff0e9); }
+.hero p { margin:10px 0 20px; font-size:17px; }
+button { background:var(--rose); color:white; border:0; padding:13px 22px; border-radius:30px; font-size:15px; cursor:pointer; margin:8px; transition:.2s; }
+button:hover { background:var(--wine); transform:translateY(-2px); }
+button:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+.card { max-width:750px; margin:20px auto; padding:26px; background:#fffafa; border:1px solid #f1c9ca; border-radius:18px; box-shadow:0 8px 25px #963e4c12; }
+.bouquet { font-size:70px; margin:25px; animation:bloom 2s infinite alternate; }
+@keyframes bloom { from { transform:scale(.95) rotate(-3deg); } to { transform:scale(1.08) rotate(3deg); } }
+.gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; max-width:850px; margin:25px auto; }
+.polaroid { background:white; padding:10px 10px 22px; box-shadow:0 5px 15px #713c4525; transform:rotate(-2deg); }
+.polaroid:nth-child(even) { transform:rotate(2deg); }
+.polaroid img { width:100%; height:230px; object-fit:cover; display:block; border-radius:2px; }
+.polaroid p { margin-top:12px; font-style:italic; }
+.letter { text-align:left; white-space:pre-line; line-height:2; font-size:16px; }
+video { width:100%; max-width:650px; border-radius:15px; margin-top:20px; background:var(--blush); }
+audio { display:block; width:100%; max-width:420px; margin:22px auto; }
+.question { font-size:19px; margin:20px 0; }
+.answer { display:block; width:100%; max-width:350px; margin:10px auto; background:var(--blush); color:var(--text); }
+.answer:hover { background:#efb5b8; }
+#gameArea { position:relative; width:100%; max-width:500px; height:320px; margin:20px auto; overflow:hidden; background:var(--blush); border:2px solid #e6a6aa; border-radius:15px; }
+.heart { position:absolute; font-size:30px; cursor:pointer; user-select:none; }
+.final { background:linear-gradient(140deg,var(--blush),var(--cream)); min-height:65vh; }
+footer { padding:25px; text-align:center; color:var(--wine); background:var(--blush); }
+.floating { position:fixed; bottom:-30px; pointer-events:none; animation:floatUp 7s linear forwards; z-index:20; }
+@keyframes floatUp { to { transform:translateY(-110vh) rotate(30deg); opacity:0; } }
+
+/* Floating music control: visitor starts playback with a tap */
+#musicWidget { position:fixed; bottom:18px; right:12px; z-index:1000; text-align:center; }
+#musicButton { background:var(--wine); color:white; box-shadow:0 4px 15px #963e4c40; font-size:13px; padding:12px 16px; margin:0; }
+#musicPlayer { display:none; width:min(270px,calc(100vw - 24px)); margin-bottom:10px; padding:10px; background:white; border:1px solid #f1c9ca; border-radius:14px; box-shadow:0 5px 20px #963e4c30; }
+#musicPlayer iframe { display:block; width:100%; height:152px; border:0; border-radius:8px; }
+#musicPlayer p { font-size:12px; margin:5px 0; }
+#closeMusic { font-size:12px; padding:8px 14px; }
+@media(max-width:500px) {
+  .gallery { gap:12px; }
+  .polaroid img { height:165px; }
+  section { padding:50px 14px; }
+  #musicWidget { bottom:12px; right:10px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; transition-duration:.01ms!important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Floating music player -->
+<div id="musicWidget">
+  <div id="musicPlayer">
+    <p><strong>My Love Mine All Mine ❤️</strong></p>
+    <p>Mitski</p>
+    <iframe id="musicFrame" title="Mitski - My Love Mine All Mine"
+      src="" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+    <button id="closeMusic" onclick="stopMusic()">✕ Close Music</button>
+  </div>
+  <button id="musicButton" onclick="toggleMusic()">🎵 Play Birthday Song</button>
+</div>
+
+<nav>
+  <a href="#home">Home</a><a href="#bouquet">Roses</a><a href="#gallery">Photos</a>
+  <a href="#video">Video</a><a href="#letter">Letter</a><a href="#voice">My Voice</a>
+  <a href="#games">Games</a><a href="#surprise">Surprise</a>
+</nav>
+
+<section class="hero" id="home">
+  <p>✨ A little surprise made with love ✨</p>
+  <h1>Happy Birthday, Dwayne! ❤️</h1>
+  <p>To my favourite human, my favourite person.</p>
+  <a href="#bouquet"><button>Open Your Birthday Surprise 💌</button></a>
+</section>
+
+<section id="bouquet">
+  <h2>A Bouquet For You 🌹</h2>
+  <div class="card">
+    <div class="bouquet">💐🌹</div>
+    <p>A little bouquet for someone very special.</p>
+    <p>Wishing you endless happiness and love!</p>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2>Our Little Memories 📸</h2>
+  <p>Some moments deserve to be kept forever.</p>
+  <div class="gallery">
+    <div class="polaroid"><img src="IMG-20261114-WA0005.jpg" alt="Memory one"><p>A special memory ❤️</p></div>
+    <div class="polaroid"><img src="IMG_20261114_161607_306.webp" alt="Memory two"><p>One for the memories</p></div>
+    <div class="polaroid"><img src="IMG_20261114_161659_019.webp" alt="Memory three"><p>My favourite moments</p></div>
+    <div class="polaroid"><img src="Screenshot_20261123-231313_Photos.png" alt="Memory four"><p>Always worth remembering</p></div>
+  </div>
+</section>
+
+<section id="video">
+  <h2>A Little Video Surprise 🎬</h2>
+  <div class="card">
+    <p>A little something special for your birthday.</p>
+    <video controls playsinline preload="metadata">
+      <source src="KAPI_261115031352403~3.mp4" type="video/mp4">
+      Your browser does not support this video.
+    </video>
+  </div>
+</section>
+
+<section id="letter">
+  <h2>A Letter For You 💌</h2>
+  <div class="card letter">Happy Birthday to my favourite human. ❤️
+
+I don't know how to put everything I feel for you into words, but I'll try.
+
+Out of all the people in this world, I'm so glad that somehow, our paths crossed. You became someone I never want to imagine my days without.
+
+You're my favourite notification, my favourite distraction, my safest feeling, and honestly, my favourite person to annoy for the rest of my life. 😭❤️
+
+I hope life gives you every little thing your heart wishes for. I hope you never stop smiling, never doubt how special you are, and never forget that someone out here is genuinely so proud of you.
+
+If I could choose all over again, I'd still choose you. In every lifetime, in every universe, in every version of this crazy little world.
+
+I love you more than these words could ever explain.
+
+Happy birthday, my boy. You're so loved. 🫂❤️</div>
+</section>
+
+<section id="voice">
+  <h2>A Birthday Wish From Me 🎧</h2>
+  <div class="card">
+    <div class="bouquet">💗</div>
+    <p>A little message, straight from my heart to you.</p>
+    <audio id="myVoice" controls preload="metadata">
+      <source src="happy%20birthday.m4a" type="audio/mp4">
+      Your browser does not support audio playback.
+    </audio>
+    <p>With love, just for you. ❤️</p>
+    <p><i>Listen whenever you want to hear my voice.</i></p>
+  </div>
+</section>
+
+<section id="games">
+  <h2>Let's Play Some Games! 🎮</h2>
+  <div class="card">
+    <p>Two little birthday games are waiting for you.</p>
+    <a href="#quiz"><button>Play the Quiz 💗</button></a>
+    <a href="#catch"><button>Catch the Hearts ❤️</button></a>
+  </div>
+</section>
+
+<section id="quiz">
+  <h2>How Well Do You Know Me? 💕</h2>
+  <div class="card">
+    <p id="quizQuestion" class="question"></p>
+    <div id="quizAnswers"></div>
+    <p id="quizResult"></p>
+    <button onclick="nextQuestion()">Next Question</button>
+  </div>
+</section>
+
+<section id="catch">
+  <h2>Catch the Hearts! ❤️</h2>
+  <div class="card">
+    <p>Catch as many hearts as you can in 20 seconds!</p>
+    <h3>Time: <span id="time">20</span>s</h3>
+    <h3>Score: <span id="score">0</span></h3>
+    <button id="startGame" onclick="startGame()">Start Game</button>
+    <div id="gameArea"></div>
+    <p id="gameResult"></p>
+  </div>
+</section>
+
+<section class="final" id="surprise">
+  <h2>One Last Thing... ❤️</h2>
+  <div class="card">
+    <h1>🎂</h1>
+    <p>You deserve all the happiness in the world.</p>
+    <p>Keep smiling, keep shining and have the most beautiful year ahead.</p>
+    <br>
+    <button onclick="showSurprise()">Click For Your Final Surprise 💌</button>
+    <h2 id="finalMessage"></h2>
+  </div>
+</section>
+
+<footer>
+  Made with love, just for your birthday. ❤️
+  <p>Dwayne, My Boy ✨</p>
+</footer>
+
+<script>
+// Music: starts only after the visitor taps the music button.
+function toggleMusic() {
+  const player = document.getElementById("musicPlayer");
+  const frame = document.getElementById("musicFrame");
+  const button = document.getElementById("musicButton");
+
+  player.style.display = "block";
+  frame.src = "https://www.youtube.com/embed/vx4kLgnFexo?autoplay=1&playsinline=1";
+  button.textContent = "🎵 Music Player Open";
+}
+
+function stopMusic() {
+  document.getElementById("musicFrame").src = "";
+  document.getElementById("musicPlayer").style.display = "none";
+  document.getElementById("musicButton").textContent = "🎵 Play Birthday Song";
+}
+
+// Floating hearts
+function createFloatingHeart() {
+  const heart = document.createElement("div");
+  heart.className = "floating";
+  heart.textContent = ["❤️", "💕", "💗", "🌸"][Math.floor(Math.random() * 4)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (15 + Math.random() * 20) + "px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 7000);
+}
+setInterval(createFloatingHeart, 1300);
+
+// Birthday quiz
+const questions = [
+  {
+    question: "What makes our memories special?",
+    answers: ["Every little moment", "Nothing", "Only gifts"],
+    correct: 0
+  },
+  {
+    question: "What is the best birthday wish?",
+    answers: ["More happiness and smiles", "More homework", "More stress"],
+    correct: 0
+  },
+  {
+    question: "What should you do today?",
+    answers: ["Enjoy your birthday!", "Forget to celebrate", "Stay bored"],
+    correct: 0
+  }
+];
+
+let questionIndex = 0;
+
+function showQuestion() {
+  const q = questions[questionIndex];
+  document.getElementById("quizQuestion").textContent = q.question;
+  document.getElementById("quizResult").textContent = "";
+  const area = document.getElementById("quizAnswers");
+  area.innerHTML = "";
+
+  q.answers.forEach((answer, index) => {
+    const button = document.createElement("button");
+    button.className = "answer";
+    button.textContent = answer;
+    button.onclick = () => {
+      document.getElementById("quizResult").textContent =
+        index === q.correct
+          ? "Correct! You know the birthday vibes! ❤️"
+          : "Nice try! Keep going! 💗";
+      area.querySelectorAll("button").forEach(b => b.disabled = true);
+    };
+    area.appendChild(button);
+  });
+}
+
+function nextQuestion() {
+  questionIndex = (questionIndex + 1) % questions.length;
+  showQuestion();
+}
+showQuestion();
+
+// Catch the Hearts game
+let score = 0;
+let timeLeft = 20;
+let gameInterval;
+let heartInterval;
+let playing = false;
+
+function startGame() {
+  if (playing) return;
+  playing = true;
+  score = 0;
+  timeLeft = 20;
+
+  document.getElementById("score").textContent = score;
+  document.getElementById("time").textContent = timeLeft;
+  document.getElementById("gameResult").textContent = "";
+  document.getElementById("gameArea").innerHTML = "";
+  document.getElementById("startGame").disabled = true;
+
+  gameInterval = setInterval(() => {
+    timeLeft--;
+    document.getElementById("time").textContent = timeLeft;
+    if (timeLeft <= 0) endGame();
+  }, 1000);
+
+  heartInterval = setInterval(createGameHeart, 650);
+}
+
+function createGameHeart() {
+  if (!playing) return;
+  const area = document.getElementById("gameArea");
+  const heart = document.createElement("span");
+  heart.className = "heart";
+  heart.textContent = "❤️";
+  heart.style.left = Math.random() * Math.max(0, area.clientWidth - 40) + "px";
+  heart.style.top = Math.random() * Math.max(0, area.clientHeight - 40) + "px";
+
+  heart.onclick = () => {
+    if (!playing) return;
+    score++;
+    document.getElementById("score").textContent = score;
+    heart.remove();
+  };
+
+  area.appendChild(heart);
+  setTimeout(() => heart.remove(), 1500);
+}
+
+function endGame() {
+  playing = false;
+  clearInterval(gameInterval);
+  clearInterval(heartInterval);
+  document.getElementById("gameArea").innerHTML = "";
+  document.getElementById("startGame").disabled = false;
+  document.getElementById("gameResult").textContent =
+    "Time's up! Your final score is " + score + " ❤️";
+}
+
+// Final surprise
+function showSurprise() {
+  document.getElementById("finalMessage").textContent =
+    "Happy Birthday, Dwayne! You are so loved. ❤️🎂";
+}
+</script>
+
+</body>
+</html>
