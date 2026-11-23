@@ -1,204 +1,482 @@
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width,initial-scale=1">  
-<title>Happy Birthday Dwayne ❤️</title>  
-<style>  
-*{box-sizing:border-box}  
-body{margin:0;background:#fff4f2;color:#653b40;font-family:Georgia,serif;text-align:center}  
-.page{display:none;min-height:100vh;padding:25px 15px}  
-.page.active{display:block}  
-h1,h2{color:#963e4c}  
-button{background:#963e4c;color:white;border:0;border-radius:25px;padding:13px 20px;margin:7px;cursor:pointer;font-size:15px}  
-.card{max-width:650px;margin:20px auto;padding:24px 17px;background:#fffdfb;border-radius:25px;box-shadow:0 8px 25px #963e4c18}  
-.hero{min-height:90vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#f8dad8,#fff4f2,#e99a9e);border-radius:25px;padding:20px}  
-.letter{text-align:left;line-height:1.9}  
-.option{display:block;width:100%;max-width:400px;margin:10px auto;background:#f8dad8;color:#963e4c}  
-.option.correct{background:#dcebdc;color:#315d3a}  
-.option.wrong{background:#f3c5c5;color:#7a3038}  
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:550px;margin:20px auto}  
-.menu div{padding:20px 8px;background:white;border:1px solid #f0cccc;border-radius:20px;cursor:pointer}  
-#catchArea{height:300px;max-width:450px;margin:20px auto;position:relative;background:#f8e0dc;border:2px dashed #e9aeb0;border-radius:20px;overflow:hidden}  
-#heartTarget{position:absolute;font-size:40px;padding:0;background:transparent;transform:translate(-50%,-50%)}  
-@media(max-width:400px){.menu{gap:7px}.menu div{padding:14px 5px;font-size:13px}}  
-</style>  
-</head>  
-<body>  <section id="home" class="page active">  
-<div class="hero">  
-<div>  
-<div style="font-size:50px">🎀 ❤️ 🎂</div>  
-<p>A LITTLE SURPRISE FOR</p>  
-<h1 style="font-size:42px">Dwayne, My Boy</h1>  
-<p>Today is all about you. 💌</p>  
-<button onclick="showPage('letter')">Open your birthday letter 💌</button>  
-</div>  
-</div>  
-</section>  <section id="letter" class="page">  
-<div class="card">  
-<h1>To My Favourite Human 💌</h1>  
-<div class="letter">  
-<p>Happy Birthday to my favourite human. ❤️</p>  
-<p>I don't know how to put everything I feel for you into words, but I'll try.</p>  
-<p>Out of all the people in this world, I'm so glad that somehow, our paths crossed. You became someone I never want to imagine my days without.</p>  
-<p>You're my favourite notification, my favourite distraction, my safest feeling, and honestly, my favourite person to annoy for the rest of my life. 😭❤️</p>  
-<p>I hope life gives you every little thing your heart wishes for. I hope you never stop smiling, never doubt how special you are, and never forget that someone out here is genuinely so proud of you.</p>  
-<p>If I could choose all over again, I'd still choose you. In every lifetime, in every universe, in every version of this crazy little world.</p>  
-<p>I love you more than these words could ever explain.</p>  
-<p>Happy birthday, my boy. You're so loved. 🫂❤️</p>  
-</div>  
-<button onclick="showPage('games')">Let's play! 🎮</button>  
-</div>  
-</section>  <section id="games" class="page">  
-<h1>Birthday Game Time! 🎮</h1>  
-<div class="menu">  
-<div onclick="startQuiz()"><h2>💗</h2><b>How Well Do You Know Me?</b></div>  
-<div onclick="showPage('catch')"><h2>❤️</h2><b>Catch the Hearts</b></div>  
-</div>  
-<button onclick="showPage('final')">Birthday surprise 🎁</button>  
-</section>  <section id="quiz" class="page">  
-<div class="card">  
-<h1>How Well Do You Know Me? 💗</h1>  
-<p id="progress"></p>  
-<h2 id="question"></h2>  
-<div id="options"></div>  
-<p id="feedback"></p>  
-<p id="score"></p>  
-<button id="next" onclick="nextQuestion()" style="display:none">Next ➜</button>  
-<div id="quizEnd" style="display:none">  
-<h2>Quiz completed! 🎉</h2>  
-<p id="result"></p>  
-<button onclick="startQuiz()">Play again</button>  
-<button onclick="showPage('games')">Back</button>  
-</div>  
-</div>  
-</section>  <section id="catch" class="page">  
-<div class="card">  
-<h1>Catch the Hearts! ❤️</h1>  
-<p>Tap as many hearts as you can in 20 seconds!</p>  
-<p>Score: <span id="catchScore">0</span> | Time: <span id="time">20</span>s</p>  
-<div id="catchArea">  
-<button id="heartTarget" style="display:none" onclick="catchHeart()">❤️</button>  
-<p id="hint" style="padding-top:100px">Ready? Press Start!</p>  
-</div>  
-<button id="start" onclick="startCatch()">Start game ❤️</button>  
-<p id="catchResult"></p>  
-<button onclick="showPage('games')">Back to games</button>  
-</div>  
-</section>  <section id="final" class="page">  
-<div class="card">  
-<div style="font-size:65px">🎁</div>  
-<h1>Happy Birthday, Dwayne! ❤️</h1>  
-<p>I hope this year brings you happiness, beautiful memories, and everything you've been wishing for.</p>  
-<h2>You're so loved. 🫂❤️</h2>  
-<p>— Your favourite person 🎀</p>  
-<button onclick="showPage('home')">Replay ↻</button>  
-</div>  
-</section>  <script>  
-function showPage(id){  
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));  
- document.getElementById(id).classList.add('active');  
- window.scrollTo(0,0);  
- if(id!=='catch')stopCatch();  
-}  
-  
-const questions=[  
- {q:"What is my favourite kind of day?",o:["A peaceful day with you","A day full of arguments","A day with no food","A boring day"],a:0},  
- {q:"What do I enjoy receiving from you?",o:["A sweet message","A maths test","A lecture","A traffic ticket"],a:0},  
- {q:"What do I wish for you?",o:["Lots of happiness","More homework","More stress","No holidays"],a:0},  
- {q:"What are you to me?",o:["My favourite human","My teacher","My alarm clock","My delivery person"],a:0},  
- {q:"What should you do on your birthday?",o:["Smile and enjoy your day","Do homework","Forget the cake","Sleep all day"],a:0}  
-];  
-let qi=0,points=0,answered=false;  
-  
-function startQuiz(){  
- qi=0;points=0;answered=false;  
- document.getElementById('quizEnd').style.display='none';  
- showPage('quiz');renderQuestion();  
-}  
-function renderQuestion(){  
- answered=false;  
- let q=questions[qi];  
- document.getElementById('progress').textContent='Question '+(qi+1)+' of '+questions.length;  
- document.getElementById('question').textContent=q.q;  
- document.getElementById('feedback').textContent='';  
- document.getElementById('score').textContent='';  
- document.getElementById('next').style.display='none';  
- let box=document.getElementById('options');box.innerHTML='';  
- q.o.forEach((v,i)=>{  
-  let b=document.createElement('button');  
-  b.className='option';b.textContent=v;  
-  b.onclick=()=>answer(i,b);box.appendChild(b);  
- });  
-}  
-function answer(i,chosen){  
- if(answered)return;answered=true;  
- let q=questions[qi];  
- document.querySelectorAll('#options button').forEach((b,j)=>{  
-  b.disabled=true;if(j===q.a)b.classList.add('correct');  
- });  
- if(i===q.a){points++;document.getElementById('feedback').textContent='Correct! You know me well! ❤️';}  
- else{chosen.classList.add('wrong');document.getElementById('feedback').textContent='Nice try! The correct answer is highlighted 💗';}  
- document.getElementById('score').textContent='Score: '+points;  
- document.getElementById('next').style.display='inline-block';  
- document.getElementById('next').textContent=qi===questions.length-1?'See score 🎉':'Next ➜';  
-}  
-function nextQuestion(){  
- if(!answered)return;  
- qi++;  
- if(qi<questions.length){renderQuestion();}  
- else{  
-  document.getElementById('question').textContent='';  
-  document.getElementById('options').innerHTML='';  
-  document.getElementById('progress').textContent='All done!';  
-  document.getElementById('feedback').textContent='';  
-  document.getElementById('score').textContent='';  
-  document.getElementById('next').style.display='none';  
-  document.getElementById('result').textContent='You got '+points+' out of '+questions.length+' points! ❤️';  
-  document.getElementById('quizEnd').style.display='block';  
- }  
-}  
-  
-let catchScore=0,seconds=20,timer=null,running=false;  
-const target=document.getElementById('heartTarget');  
-const area=document.getElementById('catchArea');  
-  
-function moveTarget(){  
- let x=20+Math.random()*Math.max(1,area.clientWidth-40);  
- let y=20+Math.random()*Math.max(1,area.clientHeight-40);  
- target.style.left=x+'px';target.style.top=y+'px';  
-}  
-function startCatch(){  
- stopCatch();catchScore=0;seconds=20;running=true;  
- document.getElementById('catchScore').textContent=0;  
- document.getElementById('time').textContent=20;  
- document.getElementById('catchResult').textContent='';  
- document.getElementById('hint').style.display='none';  
- document.getElementById('start').disabled=true;  
- target.style.display='block';moveTarget();  
- timer=setInterval(()=>{  
-  seconds--;document.getElementById('time').textContent=seconds;  
-  if(seconds<=0)finishCatch();  
- },1000);  
-}  
-function catchHeart(){  
- if(!running)return;  
- catchScore++;  
- document.getElementById('catchScore').textContent=catchScore;  
- moveTarget();  
-}  
-function finishCatch(){  
- running=false;clearInterval(timer);timer=null;  
- target.style.display='none';  
- document.getElementById('start').disabled=false;  
- document.getElementById('start').textContent='Play again ❤️';  
- document.getElementById('hint').style.display='block';  
- document.getElementById('hint').textContent='Time is up! You caught '+catchScore+' hearts! 💕';  
- document.getElementById('catchResult').textContent='Well played, birthday boy! 🎉';  
-}  
-function stopCatch(){  
- running=false;if(timer!==null){clearInterval(timer);timer=null;}  
- target.style.display='none';  
- document.getElementById('start').disabled=false;  
-}  
-</script>  </body>  
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday Dwayne ❤️</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#fff4f2;color:#653b40;
+ font-family:Georgia,serif;text-align:center
+}
+.page{display:none;min-height:100vh;padding:24px 15px}
+.page.active{display:block}
+h1,h2{color:#963e4c}
+button{
+ background:#963e4c;color:white;border:0;border-radius:25px;
+ padding:13px 20px;margin:7px;cursor:pointer;font-size:15px
+}
+button:disabled{opacity:.5}
+.card{
+ max-width:650px;margin:20px auto;padding:24px 17px;
+ background:#fffdfb;border-radius:25px;
+ box-shadow:0 8px 25px #963e4c18
+}
+.hero{
+ min-height:90vh;display:flex;align-items:center;
+ justify-content:center;
+ background:linear-gradient(135deg,#f8dad8,#fff4f2,#e99a9e);
+ border-radius:25px;padding:20px;position:relative;overflow:hidden
+}
+.letter{text-align:left;line-height:1.9}
+.menu{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:12px;max-width:550px;margin:20px auto
+}
+.menu div{
+ padding:20px 8px;background:white;
+ border:1px solid #f0cccc;border-radius:20px;cursor:pointer
+}
+.option{
+ display:block;width:100%;max-width:400px;margin:10px auto;
+ background:#f8dad8;color:#963e4c
+}
+.option.correct{background:#dcebdc;color:#315d3a}
+.option.wrong{background:#f3c5c5;color:#7a3038}
+
+/* Floating hearts */
+.floating{
+ position:fixed;pointer-events:none;
+ animation:floatUp 5s linear infinite;opacity:.6;z-index:0
+}
+@keyframes floatUp{
+ from{transform:translateY(100vh);opacity:0}
+ to{transform:translateY(-10vh);opacity:.7}
+}
+
+/* Bouquet */
+.bouquet{
+ font-size:55px;line-height:1.5;
+ animation:sway 2s ease-in-out infinite alternate;
+ transform-origin:bottom center
+}
+@keyframes sway{
+ from{transform:rotate(-5deg)}
+ to{transform:rotate(5deg)}
+}
+.bouquetText{line-height:1.8}
+
+/* Photo gallery */
+.gallery{
+ display:grid;grid-template-columns:1fr 1fr;
+ gap:16px;max-width:600px;margin:25px auto
+}
+.polaroid{
+ background:white;padding:10px 10px 22px;
+ box-shadow:0 5px 15px #963e4c25;
+ transform:rotate(-2deg);border-radius:4px
+}
+.polaroid:nth-child(even){transform:rotate(2deg)}
+.polaroid img{
+ width:100%;height:180px;object-fit:cover;
+ background:#f8dad8;border-radius:3px
+}
+.polaroid p{margin:12px 0 0;color:#963e4c}
+.videoBox{
+ width:100%;max-width:600px;margin:20px auto;
+ border-radius:20px;overflow:hidden;background:#f8dad8
+}
+.videoBox video{width:100%;display:block}
+#catchArea{
+ height:300px;max-width:450px;margin:20px auto;
+ position:relative;background:#f8e0dc;
+ border:2px dashed #e9aeb0;border-radius:20px;overflow:hidden
+}
+#heartTarget{
+ position:absolute;font-size:40px;padding:0;
+ background:transparent;transform:translate(-50%,-50%)
+}
+@media(max-width:400px){
+ .menu{gap:7px}
+ .menu div{padding:14px 5px;font-size:13px}
+ .polaroid img{height:130px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HOME -->
+<section id="home" class="page active">
+<div class="hero">
+<div>
+<div style="font-size:45px">🎀 ❤️ 🎂</div>
+<p>A LITTLE SURPRISE FOR</p>
+<h1 style="font-size:42px">Dwayne, My Boy</h1>
+<p>Today is all about you. 💌</p>
+<button onclick="showPage('bouquet')">
+Open your surprise 💐
+</button>
+</div>
+</div>
+</section>
+
+<!-- BOUQUET -->
+<section id="bouquet" class="page">
+<div class="card">
+<h1>A Bouquet Just For You 🌹</h1>
+<div class="bouquet">
+💐<br>
+🌹🌹🌹<br>
+🌷🌹🌷<br>
+🌿🌿🌿
+</div>
+<h2>Flowers for my favourite human ❤️</h2>
+<p class="bouquetText">
+May your life always bloom with happiness,
+love and beautiful memories.
+</p>
+<button onclick="showPage('gallery')">
+See our memories 📸
+</button>
+<button onclick="showPage('letter')">
+Read your letter 💌
+</button>
+</div>
+</section>
+
+<!-- PHOTO GALLERY -->
+<section id="gallery" class="page">
+<div class="card">
+<h1>Our Little Memories 📸</h1>
+<p>Every picture holds a special memory ❤️</p>
+
+<div class="gallery">
+<div class="polaroid">
+<img src="photo1.jpg" alt="Memory 1">
+<p>Our memory ❤️</p>
+</div>
+<div class="polaroid">
+<img src="photo2.jpg" alt="Memory 2">
+<p>My favourite moment</p>
+</div>
+<div class="polaroid">
+<img src="photo3.jpg" alt="Memory 3">
+<p>Forever a memory 🎀</p>
+</div>
+<div class="polaroid">
+<img src="photo4.jpg" alt="Memory 4">
+<p>My favourite human</p>
+</div>
+</div>
+
+<h2>A Little Video Memory 🎬</h2>
+<div class="videoBox">
+<video controls playsinline>
+<source src="background.mp4" type="video/mp4">
+Your browser does not support this video.
+</video>
+</div>
+
+<button onclick="showPage('letter')">
+Read your letter 💌
+</button>
+<button onclick="showPage('games')">
+Play games 🎮
+</button>
+</div>
+</section>
+
+<!-- BIRTHDAY LETTER -->
+<section id="letter" class="page">
+<div class="card">
+<h1>To My Favourite Human 💌</h1>
+<div class="letter">
+
+<p>Happy Birthday to my favourite human. ❤️</p>
+
+<p>I don't know how to put everything I feel for you into words, but I'll try.</p>
+
+<p>Out of all the people in this world, I'm so glad that somehow, our paths crossed. You became someone I never want to imagine my days without.</p>
+
+<p>You're my favourite notification, my favourite distraction, my safest feeling, and honestly, my favourite person to annoy for the rest of my life. 😭❤️</p>
+
+<p>I hope life gives you every little thing your heart wishes for. I hope you never stop smiling, never doubt how special you are, and never forget that someone out here is genuinely so proud of you.</p>
+
+<p>If I could choose all over again, I'd still choose you. In every lifetime, in every universe, in every version of this crazy little world.</p>
+
+<p>I love you more than these words could ever explain.</p>
+
+<p>Happy birthday, my boy. You're so loved. 🫂❤️</p>
+
+</div>
+<button onclick="showPage('games')">Let's play! 🎮</button>
+</div>
+</section>
+
+<!-- GAMES MENU -->
+<section id="games" class="page">
+<h1>Birthday Game Time! 🎮</h1>
+<div class="menu">
+<div onclick="startQuiz()">
+<h2>💗</h2>
+<b>How Well Do You Know Me?</b>
+</div>
+<div onclick="showPage('catch')">
+<h2>❤️</h2>
+<b>Catch the Hearts</b>
+</div>
+</div>
+<button onclick="showPage('final')">
+Birthday surprise 🎁
+</button>
+<button onclick="showPage('home')">Home 🏠</button>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="page">
+<div class="card">
+<h1>How Well Do You Know Me? 💗</h1>
+<p id="progress"></p>
+<h2 id="question"></h2>
+<div id="options"></div>
+<p id="feedback"></p>
+<p id="score"></p>
+<button id="next" onclick="nextQuestion()" style="display:none">
+Next ➜
+</button>
+
+<div id="quizEnd" style="display:none">
+<h2>Quiz completed! 🎉</h2>
+<p id="result"></p>
+<button onclick="startQuiz()">Play again</button>
+<button onclick="showPage('games')">Back</button>
+</div>
+</div>
+</section>
+
+<!-- CATCH THE HEARTS -->
+<section id="catch" class="page">
+<div class="card">
+<h1>Catch the Hearts! ❤️</h1>
+<p>Tap as many hearts as you can in 20 seconds!</p>
+<p>Score: <span id="catchScore">0</span>
+| Time: <span id="time">20</span>s</p>
+
+<div id="catchArea">
+<button id="heartTarget" style="display:none"
+onclick="catchHeart()">❤️</button>
+<p id="hint" style="padding-top:100px">
+Ready? Press Start!
+</p>
+</div>
+
+<button id="start" onclick="startCatch()">Start game ❤️</button>
+<p id="catchResult"></p>
+<button onclick="showPage('games')">Back to games</button>
+</div>
+</section>
+
+<!-- FINAL SURPRISE -->
+<section id="final" class="page">
+<div class="card">
+<div style="font-size:65px">🎁</div>
+<h1>Happy Birthday, Dwayne! ❤️</h1>
+<p>
+I hope this year brings you happiness,
+beautiful memories, and everything you've been wishing for.
+</p>
+<div style="font-size:45px">🌹💗🌹</div>
+<h2>You're so loved. 🫂❤️</h2>
+<p>— Your favourite person 🎀</p>
+<button onclick="showPage('home')">Replay ↻</button>
+</div>
+</section>
+
+<script>
+function showPage(id){
+ document.querySelectorAll('.page').forEach(p=>
+ p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0,0);
+ if(id!=='catch')stopCatch();
+}
+
+/* Floating hearts */
+for(let i=0;i<12;i++){
+ let h=document.createElement('div');
+ h.className='floating';
+ h.textContent='♥';
+ h.style.left=Math.random()*100+'%';
+ h.style.animationDelay=Math.random()*5+'s';
+ document.body.appendChild(h);
+}
+
+/* Quiz */
+const questions=[
+ {q:"What is my favourite kind of day?",
+ o:["A peaceful day with you","A day full of arguments",
+ "A day with no food","A boring day"],a:0},
+ {q:"What do I enjoy receiving from you?",
+ o:["A sweet message","A maths test",
+ "A lecture","A traffic ticket"],a:0},
+ {q:"What do I wish for you?",
+ o:["Lots of happiness","More homework",
+ "More stress","No holidays"],a:0},
+ {q:"What are you to me?",
+ o:["My favourite human","My teacher",
+ "My alarm clock","My delivery person"],a:0},
+ {q:"What should you do on your birthday?",
+ o:["Smile and enjoy your day","Do homework",
+ "Forget the cake","Sleep all day"],a:0}
+];
+
+let qi=0,points=0,answered=false;
+
+function startQuiz(){
+ qi=0;points=0;answered=false;
+ document.getElementById('quizEnd').style.display='none';
+ showPage('quiz');
+ renderQuestion();
+}
+
+function renderQuestion(){
+ answered=false;
+ let q=questions[qi];
+ document.getElementById('progress').textContent=
+ 'Question '+(qi+1)+' of '+questions.length;
+ document.getElementById('question').textContent=q.q;
+ document.getElementById('feedback').textContent='';
+ document.getElementById('score').textContent='';
+ document.getElementById('next').style.display='none';
+
+ let box=document.getElementById('options');
+ box.innerHTML='';
+
+ q.o.forEach((v,i)=>{
+  let b=document.createElement('button');
+  b.className='option';
+  b.textContent=v;
+  b.onclick=()=>answer(i,b);
+  box.appendChild(b);
+ });
+}
+
+function answer(i,chosen){
+ if(answered)return;
+ answered=true;
+ let q=questions[qi];
+
+ document.querySelectorAll('#options button').forEach((b,j)=>{
+  b.disabled=true;
+  if(j===q.a)b.classList.add('correct');
+ });
+
+ if(i===q.a){
+  points++;
+  document.getElementById('feedback').textContent=
+  'Correct! You know me well! ❤️';
+ }else{
+  chosen.classList.add('wrong');
+  document.getElementById('feedback').textContent=
+  'Nice try! The correct answer is highlighted 💗';
+ }
+
+ document.getElementById('score').textContent=
+ 'Score: '+points;
+ document.getElementById('next').style.display='inline-block';
+ document.getElementById('next').textContent=
+ qi===questions.length-1?'See score 🎉':'Next ➜';
+}
+
+function nextQuestion(){
+ if(!answered)return;
+ qi++;
+
+ if(qi<questions.length){
+  renderQuestion();
+ }else{
+  document.getElementById('question').textContent='';
+  document.getElementById('options').innerHTML='';
+  document.getElementById('progress').textContent='All done!';
+  document.getElementById('feedback').textContent='';
+  document.getElementById('score').textContent='';
+  document.getElementById('next').style.display='none';
+  document.getElementById('result').textContent=
+  'You got '+points+' out of '+questions.length+' points! ❤️';
+  document.getElementById('quizEnd').style.display='block';
+ }
+}
+
+/* Catch the Hearts */
+let catchScore=0,seconds=20,timer=null,running=false;
+const target=document.getElementById('heartTarget');
+const area=document.getElementById('catchArea');
+
+function moveTarget(){
+ let x=20+Math.random()*Math.max(1,area.clientWidth-40);
+ let y=20+Math.random()*Math.max(1,area.clientHeight-40);
+ target.style.left=x+'px';
+ target.style.top=y+'px';
+}
+
+function startCatch(){
+ stopCatch();
+ catchScore=0;
+ seconds=20;
+ running=true;
+
+ document.getElementById('catchScore').textContent=0;
+ document.getElementById('time').textContent=20;
+ document.getElementById('catchResult').textContent='';
+ document.getElementById('hint').style.display='none';
+ document.getElementById('start').disabled=true;
+ document.getElementById('start').textContent='Game running...';
+
+ target.style.display='block';
+ moveTarget();
+
+ timer=setInterval(()=>{
+  seconds--;
+  document.getElementById('time').textContent=seconds;
+  if(seconds<=0)finishCatch();
+ },1000);
+}
+
+function catchHeart(){
+ if(!running)return;
+ catchScore++;
+ document.getElementById('catchScore').textContent=catchScore;
+ moveTarget();
+}
+
+function finishCatch(){
+ running=false;
+ clearInterval(timer);
+ timer=null;
+ target.style.display='none';
+ document.getElementById('start').disabled=false;
+ document.getElementById('start').textContent='Play again ❤️';
+ document.getElementById('hint').style.display='block';
+ document.getElementById('hint').textContent=
+ 'Time is up! You caught '+catchScore+' hearts! 💕';
+ document.getElementById('catchResult').textContent=
+ 'Well played, birthday boy! 🎉';
+}
+
+function stopCatch(){
+ running=false;
+ if(timer!==null){
+  clearInterval(timer);
+  timer=null;
+ }
+ target.style.display='none';
+ document.getElementById('start').disabled=false;
+}
+</script>
+
+</body>
 </html>
